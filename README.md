@@ -3,17 +3,17 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+Les fonctionnalités inclusent :
 
-* Un système de login / logout avec une page de connexion/d'inscription
+* Un système de login / logout avec une page de connexion(login) et d'inscription(Sign up). (gem bcrypt & session)
 
-* Les potins créés sont associés à l'utilisateur en cours, idem pour les commentaires
+* Les potins créés sont associés à l'utilisateur en cours, idem pour les commentaires. (session[:user_id])
 
 * Désormais impossible : la création de potin si l'utilisateur n'est pas connecté. Idem pour show du potin
-    Édition et destruction des potins
+    Édition et destruction des potins. (check&redirection)
 
-* le système de likes
+* le système de likes. (like & dislike)
 
-* Un CRUD succinct des: utilisateurs, Gossips, like, comments(creat) 
+* Un CRUD complet des: utilisateurs, Gossips, like, comments(creat) 
 
 
