@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GossipProject</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>The Gossip Project</title>
+
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mdb.lite.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    
+    
+  </head>
+
+  <body style="background-image: url('https://mdbootstrap.com/img/Photos/Others/gradient2.png'); background-repeat: no-repeat; background-attachment: fixed ; background-position: center center;" >
+      
+      <!--Main Navigation-->
+<header>
+
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark pink scrolling-navbar">
+    <a class="navbar-brand" href="#"><strong>The Gossip Project</strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+<%if(User.find_by(id: session[:user_id]))%>
+     <li class="nav-item active">
+          <a class="nav-link" href="/">Acceuil <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/team">Team</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user">Utilisateur/Auteur</a>
+        </li>
+
+       
+      
+<%else%>
+        
+<%end%>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav nav-flex-icons">
+        
+        
+      <li class="nav-item">
+        <%if(User.find_by(id: session[:user_id]))%>
+
+<div class="btn-group" style="box-shadow: none;">
+  <button type="button" class="btn btn-outline-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <b>Menu</b>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" data-toggle="modal" data-target="#modalSubscriptionForm" href="">Nouveau potin</a>
+    <a class="dropdown-item" href="/logout">Logout</a> 
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/sign_up/createuser">Sign up</a>
+  </div>
+</div>
+
+
+
+<%else%>
+          <!-- Example single danger button -->
+<div class="btn-group" style="box-shadow: none;">
+  <button type="button" class="btn btn-outline-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <b>Log/Sign</b> 
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="/login">Login</a> 
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/sign_up/createuser">Sign up</a>
+  </div>
+</div>
+<%end%>
+      </li>
+
+
+
+
+
+
+
+      </ul>
+    </div>
+  </nav>
+
+</header>
+<!--Main Navigation-->
+
+   <br/>    <br/><br/>
+<div class="" >
+       
+          <%= yield %>
+
+      </div>
+  
+  <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header text-center" style="background-color: #33bb33; color: #fff; font-family: 'Purisa';">
+        <h4 class="modal-title w-100 font-weight-bold" style="font-family: Purisa">Nouveau potin</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    <form action="acceuil/potin" method="post">
+      <div class="modal-body mx-3">
+       
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <label for="exampleForm2">Titre</label>
+          <input type="text" id="exampleForm2" class="form-control" name="titre">
+        
+
+        <!--Material textarea-->
+          <div class="md-form md-outline">
+            <textarea type="text" id="form75" class="form-control" rows="3"  name="contenu"></textarea>
+            <label for="form75">Contenu</label>
+          </div>
+
+      </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <input type="submit" id="exampleForm2" class="btn btn-dark-green" value="Enregistrer">
+            
+          </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+ <script type="application/javascript">
+$(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+      </script>
+      
+      
+      <script type="application/javascript">
+
+    
+    function validationFunction() {
+setTimeout(function () {
+$('#custom-validation').nextStep();
+}, 1600);
+}
+function someTrueFunction() {
+return true;
+}
+
+$(document).ready(function () {
+$('.stepper').mdbStepper();
+})
+      </script>
+  </body>
+    
+</html>

@@ -1,0 +1,201 @@
+<form action="/modif" method="post">
+<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+<input name="id_gossip" type="hidden" value="<%=@id_gossip%>">
+<!-- News jumbotron -->
+<div class="jumbotron text-center hoverable p-4" >
+
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-4 offset-md-1 mx-3 my-3">
+
+<% imaz=Faker::Avatar.image%>
+      <!-- Featured image -->
+      <div class="view overlay" >
+        <img src="<%=imaz%>" style=" float: right;">
+        <a>
+          <div class="mask rgba-white-slight">Copyrigth: JHAPH</div>
+        </a>
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-7 text-md-left ml-3 mt-3">
+
+      <!-- Excerpt -->
+      <a href="#!" class="green-text">
+        <h4 class="h4 pb-1">Modification du potin</h4>
+      </a>
+
+        
+	    	
+	    
+  	<label for="exampleForm2">Titre</label>
+	<input type="text" id="exampleForm2" name="titre" class="form-control" value="<%=@TitreGossip%>" style="width: 50%;">
+
+
+     
+
+
+	<div class="md-form amber-textarea active-amber-textarea" style="width: 50%">
+	  <textarea type="text" id="form19" class="md-textarea form-control" rows="3" name="contenu"><%=@ContenuGossip%>
+	  </textarea>
+	  
+	</div>
+		
+
+     
+
+      
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+</div>
+<div class="container text-center">
+ <p class="font-weight-normal" style="font-style: italic; font-size: 75%; color: silver;">Oeuvre de : <a><strong><%=@UserFirstName%></strong></a>, sortie le <%=@DateOeuvre%></p>
+<a href="/afficher/<%=@id_gossip%>" class="btn btn-light">Retour</a>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmDelete">Supprimer</button>
+      
+      
+      <a class="btn btn-primary" data-toggle="modal" data-target="#modalAbandonedCart" >Appliquer</a>
+ </div>
+
+
+
+
+
+
+
+ <!-- Button trigger modal-->
+
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">T'en est sûr ?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+      	Suppression de :"<%=@TitreGossip%>"<br/>
+        L'action sera immediatement irreversible
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <a href="/delete/<%=@id_gossip%>" class="btn  btn-outline-danger">Supprimer</a>
+        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+
+<!-- Button trigger modal-->
+
+
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">Application des modifications
+        </p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-3">
+            <p></p>
+            <p class="text-center" ><img src="<%=imaz%>"style="height: 100px; margin-right: 10%;"></p>
+          </div>
+
+          <div class="col-9" >Les informations original suivant :
+            <p style="font-size: 75%;"> *Titre : <i><%=@TitreGossip%></i></p>
+            <p style="font-size: 75%;">*Contenu : <i><%=@ContenuGossip%></i></p>
+
+            ...seront modifiées
+          </div>
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <input type="submit" class="btn btn-info" value="Appliquer la modification"></input>
+        <a type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Annuler</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header text-center" style="background-color: #33bb33; color: #fff; font-family: 'Purisa';">
+        <h4 class="modal-title w-100 font-weight-bold" style="font-family: Purisa">Nouveau potin</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    <form action="/acceuil/potin" method="post">
+      <div class="modal-body mx-3">
+       
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <label for="exampleForm2">Titre</label>
+          <input type="text" id="exampleForm2" class="form-control" name="titre">
+        
+
+        <!--Material textarea-->
+          <div class="md-form md-outline">
+            <textarea type="text" id="form75" class="form-control" rows="3"  name="contenu"></textarea>
+            <label for="form75">Contenu</label>
+          </div>
+
+      </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <input type="submit" id="exampleForm2" class="btn btn-dark-green" value="Enregistrer">
+            
+          </div>
+    </form>
+    </div>
+  </div>
+</div>

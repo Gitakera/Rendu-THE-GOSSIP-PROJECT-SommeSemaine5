@@ -1,0 +1,268 @@
+<!-- News jumbotron -->
+<div class="jumbotron  hoverable p-4" style="width: 60%; margin-left: auto; margin-right: auto; padding-bottom: 0px;">
+
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-4 offset-md-1 mx-3 my-3">
+
+<% imaz=Faker::Avatar.image%>
+      <!-- Featured image -->
+      <div class="view overlay" >
+        <img src="<%=imaz%>" style=" float: right;">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+    <!-- Grid column -->
+    <div class="col-md-7 text-md-left ml-3 mt-3">
+
+      <!-- Excerpt -->
+      <a href="#!" class="green-text">
+        <h6 class="h6 pb-1">Detail du potin</h6>
+      </a>
+
+      <h4 class="h4 mb-4"><%=@TitreGossip%></h4>
+
+      <p class="font-weight-normal" style="overflow: hidden; word-wrap: break-word;"><%=@ContenuGossip%></p>
+      <p class="font-weight-normal " style="font-style: italic; ">Oeuvre de : <strong><%=@UserFirstName%> </strong><button  class="badge badge-pill badge-light " data-toggle="modal" data-target="#profil"> Info</button>    </p>
+      <p class="font-weight-normal" style="font-style: italic; font-size: 75%;">-->Local actuel : <%=@ville%></p>
+      <p class="font-weight-normal" style="font-style: italic; font-size: 75%;">-->Sortie le <%=@DateOeuvre%></p>
+        
+      <a href="/edit/<%=@id_gossip%>" class="btn btn-success" >Modifier</a>
+      <a class="btn btn-danger" href="/delete/<%=@id_gossip%>" data-toggle="modal" data-target="#modalConfirmDelete">Supprimer</a>
+      <a href="/" class="btn btn-primary">Retour</a>
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+  <hr></hr>
+
+  <div class="container text-center">  
+<%
+condition = Like.find_by(user_id: session[:user_id], gossip_id: @id_gossip)
+if condition%>
+
+        <a style="color: silver;" href="/likehandle/dislike/<%=session[:user_id]%>/<%=@id_gossip%>">
+          Tu n'aime plus ? ->
+         <span class="mdl-chip__contact mdl-color--blue-A700 mdl-color-text--white" ><i class="material-icons" style="position: relative; top: 10%;">thumb_down_alt</i></span>
+        </a>
+<%else%>
+
+        <a style="color: silver;" href="/likehandle/like/<%=session[:user_id]%>/<%=@id_gossip%>">
+        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white" ><i class="material-icons" style="position: relative; top: 10%;">thumb_up_alt</i></span>
+        </a>
+<%end%>
+        
+
+</div>
+
+<div style="font-size: 80%; width: 90%; margin-left:auto; margin-right:auto;">
+
+
+
+<% 
+
+     hTMLCommentaire="" 
+    
+@commentaire.each do |commentLigne|
+#Begin---initialisation du HTMLCommentaire-------------------
+         hTMLCommentaire="#{hTMLCommentaire}<form name=\"souscomment#{commentLigne.id}\" action=\"/saving_ucomment\" method=\"post\">
+          <input name=\"authenticity_token\" type=\"hidden\" value=\"#{form_authenticity_token}\">"
+#End-----initialisation du HTMLCommentaire-------------------
+  hTMLCommentaire="#{hTMLCommentaire}<img src=\"#{Faker::Avatar.image}\" class=\"rounded-circle z-depth-1-half\" style=\"height: 50px; margin: 7px; \">
+  
+    <a class=\"\" data-toggle=\"collapse\" href=\"#collapse#{commentLigne.id}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample\">
+          <span style=\" font-weight: bold; color: #4285f4\">#{commentLigne.user.first_name} </span>
+          <span style=\"color: black; font-family: Purisa;\">#{commentLigne.content}</span>
+    </a><br/>
+
+  <div class=\"collapse\" id=\"collapse#{commentLigne.id}\" style=\"margin-left: 75px;  box-shadow: 0px 0px 0px #fff;\">
+    <div class=\"cardc cardc-body\" style=\"width: 90%;\">"
+    
+          @sousCommentaire.where(comment_id: commentLigne.id).each do |souscommentaireLigne|
+            hTMLCommentaire="#{hTMLCommentaire}<br/><img src=\"#{Faker::Avatar.image}\" class=\"\" width=\"30px\">
+            <span style=\" color: #4285f4\"> #{souscommentaireLigne.user.first_name} </span>
+            <span style=\"color: gray; font-family: Chilanka;\"> #{souscommentaireLigne.content}</span>"
+          end #end each souscomm
+
+          hTMLCommentaire="#{hTMLCommentaire}
+          <!-- input sous com -->
+          <div class=\"\" style=\"\">
+          <input name=\"id_gossip\" type=\"hidden\" value=\"#{@id_gossip}\">
+           <input name=\"id_commentaire\" type=\"hidden\" value=\"#{commentLigne.id}\">
+            <input type=\"text\" name=\"sous_commentaire\" class=\"form-control\" placeholder=\"Votre commentaire ...\" aria-label=\"Recipient's username\" aria-describedby=\"button-addon2\" style=\"width:62%; display: inline-block;\" autofocus >
+                <input class=\"btn btn-outline-secondary\" type=\"submit\" id=\"button-addon2\" value=\"commenter\">
+          </div>
+          <!-- input sous com -->       
+        
+      </div>
+    </div>
+    </form>
+"
+
+
+
+
+
+
+
+#fin each do commentLigne
+end%>
+
+
+
+
+<%=raw(hTMLCommentaire)%>
+
+
+</div>  
+  
+
+<form name="commentaire" action="/saving_comment" method="post">
+ <input name="id_gossip" type="hidden" value="<%=@id_gossip%>">
+          <input name="authenticity_token" type="hidden" value="<%=form_authenticity_token%>">
+   <!-- input com -->
+      <div class="text-center" style="border: 1px solid #f3f3f3; margin:0px; margin-top: 50px; width: 100%;">
+
+        <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white" style="float: left; margin: 5px; position: relative; top: 3px;"><i class="material-icons" style="position: relative; top: 10%; ">comment</i></span>
+
+        <input name="commentaire" type="text" class="form-control" placeholder="Votre commentaire ..." aria-label="Recipient's username" aria-describedby="button-addon2" style="width:75%; display: inline-block;"/ >
+        <input type="submit" value="Commenter" class="btn btn-outline-pink" type="button" id="button-addon2"style="background-color: #e8e8e8; font-family: Purisa;"/>
+
+
+       
+      </div>
+       
+   <!-- input com -->
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- News jumbotron -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">T'en est sûr ?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        Suppression de :"<%=@TitreGossip%> "<br/>
+        L'action sera immediatement irreversible
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <a href="/delete/<%=@id_gossip%>" class="btn  btn-outline-danger">Supprimer</a>
+        <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Non</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="profil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <div class="card">
+  <img src="<%=imaz%>" class="card-img-top" alt="..." height="190px">
+  <div class="card-body">
+    <h5 class="card-title"><%=@UserFirstName%> <%=@UserLastName%></h5>
+    <p class="card-text"><%=@UserDescription%></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Age : <%=@UserAge%></li>
+    <li class="list-group-item">E-mail : <%=@UserEmail%></li>
+    <li class="list-group-item">Ville : <%=@ville%></li>
+  </ul>
+ <!-- <div class="card-body">
+   
+  </div>-->
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+
+
+</div>
