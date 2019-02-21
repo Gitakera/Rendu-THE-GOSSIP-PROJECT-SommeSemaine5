@@ -7,7 +7,7 @@ Things you may want to cover:
 
 * Un système de login / logout avec une page de connexion/d'inscription
 
-* Les potins créés soient associés à l'utilisateur en cours, idem pour les commentaires
+* Les potins créés sont associés à l'utilisateur en cours, idem pour les commentaires
 
 * Désormais impossible : la création de potin si l'utilisateur n'est pas connecté. Idem pour show du potin
     Édition et destruction des potins
