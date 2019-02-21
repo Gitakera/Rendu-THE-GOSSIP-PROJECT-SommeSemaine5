@@ -1,24 +1,16 @@
-# README
+# DESCRIPTION DE L'APP RAILS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Les fonctionnalités inclusent :
 
-Things you may want to cover:
+* Un système de login / logout avec une page de connexion(login) et d'inscription(Sign up). (gem bcrypt & session)
 
-* Ruby version
+* Les potins créés sont associés à l'utilisateur en cours, idem pour les commentaires. (session[:user_id])
 
-* System dependencies
+* Désormais impossible : la création de potin si l'utilisateur n'est pas connecté. Idem pour show du potin
+    Édition et destruction des potins. (check&redirection)
 
-* Configuration
+* le système de likes. (like & dislike)
 
-* Database creation
+* Un CRUD complet des: utilisateurs, Gossips, like, comments(creat) 
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
