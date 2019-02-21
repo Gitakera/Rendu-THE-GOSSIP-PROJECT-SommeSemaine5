@@ -5,20 +5,15 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Un système de login / logout avec une page de connexion/d'inscription
 
-* System dependencies
+* Les potins créés soient associés à l'utilisateur en cours, idem pour les commentaires
 
-* Configuration
+* Désormais impossible : la création de potin si l'utilisateur n'est pas connecté. Idem pour show du potin
+    Édition et destruction des potins
 
-* Database creation
+* le système de likes
 
-* Database initialization
+* Un CRUD succinct des: utilisateurs, Gossips, like, comments(creat) 
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
