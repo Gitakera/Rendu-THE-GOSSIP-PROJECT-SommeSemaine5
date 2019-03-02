@@ -1,4 +1,4 @@
-# DESCRIPTION DE L'APP RAILS
+# DESCRIPTION DE L'APP RAILS  https://gitakera.github.io/Rendu-THE-GOSSIP-PROJECT-SommeSemaine5/
 
 Les fonctionnalités inclusent :
 
